@@ -45,12 +45,13 @@ async def connect_to_gateway():
                     if 'referenced_message' in load["d"] and not 'bot' in load["d"]["author"] and 'guild_id' in load["d"]: # Sanity Checks, reply check, bot check, DM check
                         for monitored_server_id in monitored_servers: # Vighebt Im Serverebs Sadac Unda Movaxdinont Monitireba
                             if load["d"]["guild_id"] == monitored_server_id and not re.match("<@!*&*[0-9]+>",message): # Vamowmebt Mesijis Serveri Ari Tu Ara Listshi, Vamowmebt Aris Mesijshi Mention Tu Ara
-                                with open("data.json", 'r',encoding="utf8") as file: # Ak Vaseivebt Ukve
-                                    data = json.load(file)
-                                data.append({"resp":load["d"]["content"], "msg":load["d"]["referenced_message"]["content"]})
-                                print({"resp":load["d"]["content"], "msg":load["d"]["referenced_message"]["content"]}) # DEBUG
-                                with open("data.json", 'w',encoding="utf8") as file:
-                                    json.dump(data, file, indent=4)
+                                if len(load["d"]["content"]) != 0 or len(load["d"]["referenced_message"]["content"]) != 0: # Tu Carielia Romelime Mesiji Mashin Ar Gavagrdzelot
+                                    with open("data.json", 'r',encoding="utf8") as file: # Ak Vaseivebt Ukve
+                                        data = json.load(file)
+                                    data.append({"resp":load["d"]["content"], "msg":load["d"]["referenced_message"]["content"]})
+                                    print({"resp":load["d"]["content"], "msg":load["d"]["referenced_message"]["content"]}) # DEBUG
+                                    with open("data.json", 'w',encoding="utf8") as file:
+                                        json.dump(data, file, indent=4)
 
 
 
